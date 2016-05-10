@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kommende disputaser MN</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"/>
+    <style>
+      .entry {
+        text-align: center;
+      }
+
+      .entry img {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .summary img {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="disputas"><div class="loading">Loading...</div></div>
+
+    <!-- borrowed stuff -->
+    <script src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+
+    <!-- our own js -->
+    <script>
+      'use strict';
+
+      function loadEntries(url, id) {
+        const blogDiv = document.getElementById(id);
+        feednami.load(url, res => {
+          blogDiv.removeChild(blogDiv.querySelector('.loading'));
+          const entries = res.feed.entries;
+
+          entries.forEach(entry => {
+            if(entry.title.indexOf('PR:') == -1 ){
+              console.log(entry);
+              console.log('sum', entry.summary);
+              const summary = document.createElement('div');
+              summary.innerHTML = entry.summary;
+              summary.className = 'summary';
+
+              const div = document.createElement('div');
+              div.setAttribute('class','entry');
+              div.innerHTML = '<p>'+entry['title']+'</p> <img src='+entry['v:image']['#']+' width="150"> <p>'+entry['v:event-start']['#']+'</p> <p>'+entry['v:event-location']['#']+'</p>';
+              div.appendChild(summary);
+              blogDiv.appendChild(div);
+            }
+          });
+
+          $(blogDiv).slick({
+            adaptiveHeight: true,
+            autoplay: true,
+            autoplaySpeed: 6000 // ms
+          });
+        });
+      };
+
+      loadEntries('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming','disputas')
+    </script>
+  </body>
+</html>
+
