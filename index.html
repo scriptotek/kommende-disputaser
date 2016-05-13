@@ -8,18 +8,46 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"/>
     <style>
+
+      #disputas {
+        width:700px; 
+        margin-right: auto; 
+        margin-left: auto;
+      }
+
+      #title {
+        font-size: 40px;
+        font-weight: bold; 
+      }
+
+      #tid {
+         font-size: 30px;
+         font-weight: bold; 
+      } 
+
+
+
       .entry {
         text-align: center;
+      
+    
       }
 
       .entry img {
         margin-left: auto;
         margin-right: auto;
+        width: 200px;
       }
 
       .summary img {
         display: none;
       }
+
+      .summary {
+        font-size: 30px;
+      }  
+
+
     </style>
   </head>
   <body>
@@ -51,8 +79,8 @@
 
               const div = document.createElement('div');
               div.setAttribute('class','entry');
-              div.innerHTML = '<p>'+entry['title']+'</p> <img src='+entry['v:image']['#']+' width="150"> <p>'+entry['v:event-start']['#']+'</p> <p>'+entry['v:event-location']['#']+'</p>';
-              div.appendChild(summary);
+              div.innerHTML = '<p id="title">'+entry['title']+'</p> <img src='+entry['v:image']['#']+' >  <p id="tid">'+entry['v:event-location']['#']+' <br>'+entry['v:event-start']['#']+'</p>';
+              div.appendChild(summary) ; 
               blogDiv.appendChild(div);
             }
           });
@@ -60,7 +88,7 @@
           $(blogDiv).slick({
             adaptiveHeight: true,
             autoplay: true,
-            autoplaySpeed: 6000 // ms
+            autoplaySpeed: 7000 // ms
           });
         });
       };
