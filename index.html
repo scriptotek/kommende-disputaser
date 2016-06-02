@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kommende disputaser MN</title>
-    <!--
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"/>
--->    <style>
+    <style>
 
       /* Base styles */
 
@@ -18,10 +15,9 @@
         padding: 0;
       }
 
-      body {
+      .container {
         font-family: Arial;
-        color: #444;
-        /* 12px/1.4 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif*/
+        color: #333;
         font-size: 1.8vw;
         display: flex;
         flex-direction: column;
@@ -34,11 +30,16 @@
         right: 0;
         top: 0;
         bottom: 0;
-        opacity: 0.2;
-        background: url(Wires_Apophysis_Fractal_Flame.jpg);
+        opacity: 0.5;
+        z-index: 0;
+        /*
+        background: url(mnfrontpage-bg-print-1.png);
+        */
         -webkit-filter: grayscale(100%);
         /* background: red; */
       }
+
+
 
       /* Header bar */
 
@@ -60,7 +61,7 @@
         margin-top: 8px;
       }
       header .header {
-        text-align: right;
+        text-align: left;
         flex: 1 1 62%;
       }
       header h1 {
@@ -106,7 +107,7 @@
       }
       .entry .leftCol, .entry .rightCol {
         box-sizing: border-box;
-        padding: 5vw 4vw;
+        padding: 4vw 4vw;
       }
       .entry .rightCol {
         padding-left: 0;
@@ -127,53 +128,50 @@
         background-repeat: no-repeat;
         background-size: cover;
         -webkit-filter: saturate(1) grayscale(100%);
-        box-shadow: 1px 1px 6px #666;
-        border-radius:2px;
+        /*box-shadow: 1px 1px 6px #666;*/
+        /*border: 10px solid #777;*/
+        /*border-radius:2px;*/
       }
 
       .entry .rightCol {
         flex: 1 0 62%;
         display: flex;
-        flex-direction: column;
+        align-items: stretch;
+        flex-direction: row;
+      }
+
+      .rightCol .inner {
+        background: url(mnfrontpage-bg-print-13.png);
+        background-size: 100%;
+        background-position: bottom center;
+        padding: 3vw 4vw;
+
+        display: flex;
         justify-content: space-between;
+        flex-direction: column;
+
       }
 
-
-      .article > * {
-        margin: 3vw 0;
+      .rightCol .inner > * {
+        margin: 1.5vw 0;
       }
 
-      .article h2 {
+      .rightCol .inner h2 {
         font-weight: normal;
-        font-size: 200%;
+        font-size: 150%;
+        color: red;
         padding: 0;
         margin: 0;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        margin-bottom: 3vw;
       }
 
       .timeloc {
         flex: 0 0 auto;
-        padding: .4em;
+        margin-bottom: 0 !important;
         /*border-top: 1px solid #dddddd;*/
-        border-top: 3px solid red;
 
       }
       .timeloc > * {
-      }
-
-      .time {
-
-      }
-      .location {
-
-      }
-      .reltime {
-        font-size: 80%;
-        text-align: left;
-        margin: 1.2vw 0 1.6vw 0;
-        padding: 0;
-        padding-bottom: .6vw;
-        border-bottom: 3px solid red;
       }
 
       .summary {
@@ -184,19 +182,24 @@
       .summary img {
         display: none;
       }
+      table {
+        margin: 0;
+        padding: 0;
+      }
       table th, table, td {
         vertical-align: top;
-        padding: .5vw;
+        padding: .3vw 1vw 0 0;
       }
       table th {
         font-weight: normal;
         color: #999;
-        text-align: right;
+        text-align: left;
       }
 
       p.title {
-        font-style: italic;
-        font-size: 120%;
+        font-size: 140%;
+        font-family: 'Georgia';
+        color: #000;
       }
 
       /* Animation */
@@ -238,27 +241,34 @@
   animation-name: articleAnim;
 }
 
+.keyword {
+  color: red;
+}
+
 
     </style>
   </head>
   <body>
-  <div class="background-image"></div>
 
+    <div class="background-image"></div>
 
-    <header>
-      <div class="logo">
-        <img src="UiO_MN_C_ENG_cmyk.png">
-      </div>
-      <div class="header">
-        <h1>Upcoming public PhD defences</h1>
-      </div>
-    </header>
+    <div class="container" style="position:absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0;">
+        <header>
+          <div class="logo">
+            <img src="UiO_MN_C_ENG_cmyk.png">
+          </div>
+          <div class="header">
+            <h1>Upcoming public PhD defences</h1>
+          </div>
+        </header>
 
-    <main>
-      
-    </main>
+        <main>
+          
+        </main>
 
-    <footer><div>Background: CC-BY-SA 3.0 © Jonathan Zander</div></footer>
+        <footer><div><!--Background: CC-BY-SA 3.0 © Jonathan Zander--></div></footer>
+
+    </div>
 
     <!-- borrowed stuff -->
     <script src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
@@ -383,24 +393,20 @@
                 summary2: summarysplit[1],
               };
 
-              entry['v:event-start']['#']
-
               var leftCol = $('<div class="leftCol">')
                 .append($('<div style="background-image: url(' + view.image + ');" class="animated fadeInLeft"></div>'))
                 ;
 
-              var rightCol = $('<div class="rightCol animated articleAnim">')
-                .append('<div class="article">' +
-                  '<div class="reltime">' + view.relative_time + ':</div>' +
-                  '<h2>' + view.title + '</h2>' +
-                  '<div class="intro">' + view.summary + ':</div>' +
-                  '<p class="title">' + view.summary2 + '</p>' +
-                  '</div>')
-                .append('<div class="timeloc"><table>'
-                  + '<tr><th>When:</th><td class="time">' + view.start_time + '</td></tr>'
-                  + '<tr><th>Where:</th><td class="loc">' + view.location + '</td></tr>'
-                  + '</table></div>')
-                ;
+              var rightCol = $('<div class="rightCol animated articleAnim"><div class="inner"><div class="article">'
+                  + '<h2>' + view.title + '</h2>'
+                  + '<div class="intro">' + view.summary + ':</div>'
+                  + '<p class="title">' + view.summary2 + '</p></div>'
+                  + '<div class="timeloc"><table>'
+                  + '<tr><th class="keyword">When</th><td class="time">' + view.start_time + '</td></tr>'
+                  + '<tr><th class="keyword">Where</th><td class="loc">' + view.location + '</td></tr>'
+                  + '</table></div>'
+                  + '</div>'
+                  );
 
               var entry = $('<div class="entry">')
                 .append(leftCol)
@@ -432,12 +438,12 @@ function prevCard() {
     showCard(currentlyShowing == 0 ? entries.length - 1 : 0);
 }
 
-$(window).keypress(function (e) {
-  if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39) {
+$(window).keydown(function (e) {
+  if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39 || e.keyCode === 40) {
     e.preventDefault();
     nextCard();
   }
-  if (e.keyCode === 37) {
+  if (e.keyCode === 37 || e.keyCode === 38) {
     e.preventDefault();
     prevCard();
   }
