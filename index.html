@@ -447,7 +447,17 @@ $(window).keydown(function (e) {
     e.preventDefault();
     prevCard();
   }
-})
+});
+
+function tick() {
+    nextCard();
+    setTimeout(tick, 8000);
+}
+
+setTimeout(tick);
+
+
+
 
           // $(blogDiv).slick({
           //   adaptiveHeight: true,
