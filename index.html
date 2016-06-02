@@ -5,95 +5,453 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kommende disputaser MN</title>
+    <!--
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"/>
-    <style>
+-->    <style>
 
-      #disputas {
-        width:700px; 
-        margin-right: auto; 
-        margin-left: auto;
+      /* Base styles */
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
       }
 
-      #title {
-        font-size: 40px;
-        font-weight: bold; 
+      body {
+        font-family: Arial;
+        color: #444;
+        /* 12px/1.4 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif*/
+        font-size: 1.8vw;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      #tid {
-         font-size: 30px;
-         font-weight: bold; 
-      } 
+      .background-image {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0.2;
+        background: url(Wires_Apophysis_Fractal_Flame.jpg);
+        -webkit-filter: grayscale(100%);
+        /* background: red; */
+      }
 
+      /* Header bar */
 
+      header {
+        flex: 0 0 auto;
+        display: flex;
+        background: #000;
+      }
+      header > div {
+        box-sizing: border-box;
+        padding: 2.2vw 4vw 2vw 4vw;
+      }
+      header .logo {
+        justify-content: space-around;
+        display: flex;
+        flex-direction: column;
+        background: #000;
+        flex: 0 1 38%;
+        margin-top: 8px;
+      }
+      header .header {
+        text-align: right;
+        flex: 1 1 62%;
+      }
+      header h1 {
+        color: #fff;
+        font-weight: normal;
+        font-size: 140%;
+        margin: 0;
+        padding: 0;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+        width: 100%;
+      }
+      .logo img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+      }
 
+      footer {
+        background: black;
+        height: 3vw;
+      }
+      footer div {
+        color: #666;
+        font-size: 50%;
+        /*
+        position: absolute;
+        bottom: 0;
+        */
+        text-align: right;
+      }
+
+      /* Main area */
+
+      main {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+      }
       .entry {
-        text-align: center;
-      
-    
+        display: flex;
+        flex: 1 0 auto;
+        align-items: stretch;
+      }
+      .entry .leftCol, .entry .rightCol {
+        box-sizing: border-box;
+        padding: 5vw 4vw;
+      }
+      .entry .rightCol {
+        padding-left: 0;
+      }
+      .entry .leftCol {
+        flex: 0 0 38%;
+        /*background: orange;*/
+        /*background: #f2f2f2 ;*/
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+      }
+      .leftCol div {
+        flex: 1 0 auto;
+        overflow: hidden;
+      }
+      .leftCol div {
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-filter: saturate(1) grayscale(100%);
+        box-shadow: 1px 1px 6px #666;
+        border-radius:2px;
       }
 
-      .entry img {
-        margin-left: auto;
-        margin-right: auto;
-        width: 200px;
+      .entry .rightCol {
+        flex: 1 0 62%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
-      .summary img {
-        display: none;
+
+      .article > * {
+        margin: 3vw 0;
+      }
+
+      .article h2 {
+        font-weight: normal;
+        font-size: 200%;
+        padding: 0;
+        margin: 0;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .timeloc {
+        flex: 0 0 auto;
+        padding: .4em;
+        /*border-top: 1px solid #dddddd;*/
+        border-top: 3px solid red;
+
+      }
+      .timeloc > * {
+      }
+
+      .time {
+
+      }
+      .location {
+
+      }
+      .reltime {
+        font-size: 80%;
+        text-align: left;
+        margin: 1.2vw 0 1.6vw 0;
+        padding: 0;
+        padding-bottom: .6vw;
+        border-bottom: 3px solid red;
       }
 
       .summary {
         font-size: 30px;
-      }  
+      }
+
+      /* Tweaks and hacks */
+      .summary img {
+        display: none;
+      }
+      table th, table, td {
+        vertical-align: top;
+        padding: .5vw;
+      }
+      table th {
+        font-weight: normal;
+        color: #999;
+        text-align: right;
+      }
+
+      p.title {
+        font-style: italic;
+        font-size: 120%;
+      }
+
+      /* Animation */
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInLeft {
+  animation-name: fadeInLeft;
+}
+
+@keyframes articleAnim {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.articleAnim {
+  animation-name: articleAnim;
+}
 
 
     </style>
   </head>
   <body>
-    <div id="disputas"><div class="loading">Loading...</div></div>
+  <div class="background-image"></div>
+
+
+    <header>
+      <div class="logo">
+        <img src="UiO_MN_C_ENG_cmyk.png">
+      </div>
+      <div class="header">
+        <h1>Upcoming public PhD defences</h1>
+      </div>
+    </header>
+
+    <main>
+      
+    </main>
+
+    <footer><div>Background: CC-BY-SA 3.0 © Jonathan Zander</div></footer>
 
     <!-- borrowed stuff -->
     <script src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>-->
 
     <!-- our own js -->
     <script>
       'use strict';
 
-      function loadEntries(url, id) {
-        const blogDiv = document.getElementById(id);
+
+      /* https://github.com/azer/relative-date/ */
+
+      var relativeDate = (function(undefined){
+
+        var SECOND = 1000,
+            MINUTE = 60 * SECOND,
+            HOUR = 60 * MINUTE,
+            DAY = 24 * HOUR,
+            WEEK = 7 * DAY,
+            YEAR = DAY * 365,
+            MONTH = YEAR / 12;
+
+        var midnight = new Date();
+        midnight.setHours(0);
+        midnight.setMinutes(0);
+        midnight.setSeconds(0);
+        midnight.setMilliseconds(0);
+        midnight = midnight.getTime();
+        midnight += DAY;
+
+        var formats = [
+            [midnight, 'i dag', DAY],
+            [midnight + DAY, 'Tomorrow', DAY],
+            [Number.MAX_VALUE, 'In %d days', DAY],
+          ];
+
+        function relativeDate(input){
+          input instanceof Date && ( input = input.getTime() );
+
+          var delta = input - midnight,
+              format, i, len;
+
+          for(i = -1, len=formats.length; ++i < len; ){
+            format = formats[i];
+            if(input < format[0]){
+              return format[1].replace('%d', Math.round(delta/format[2]));
+            }
+          };
+        }
+
+        return relativeDate;
+
+      })();
+
+
+      function stripHTML(dirtyString) {
+        var container = document.createElement('div');
+        var text = document.createTextNode(dirtyString);
+        container.appendChild(text);
+        return container.innerHTML; // innerHTML will be a xss safe string
+      }
+
+      function loadEntries(url, $h1, $main) {
         feednami.load(url, res => {
-          blogDiv.removeChild(blogDiv.querySelector('.loading'));
           const entries = res.feed.entries;
+
+          var currentlyShowing = 0;
+
+          //var entry = entries[4];
 
           entries.forEach(entry => {
             if(entry.title.indexOf('PR:') == -1 ){
-              console.log(entry);
-              console.log('sum', entry.summary);
-              const summary = document.createElement('div');
-              summary.innerHTML = entry.summary;
-              summary.className = 'summary';
 
-              const div = document.createElement('div');
-              div.setAttribute('class','entry');
-              div.innerHTML = '<p id="title">'+entry['title']+'</p> <img src='+entry['v:image']['#']+' >  <p id="tid">'+entry['v:event-location']['#']+' <br>'+entry['v:event-start']['#']+'</p>';
-              div.appendChild(summary) ; 
-              blogDiv.appendChild(div);
+              //console.log(entry);
+              //console.log('sum', entry.summary);
+
+              // const summary = document.createElement('div');
+              // summary.innerHTML = entry.summary;
+              // summary.className = 'summary';
+
+              var dt = new Date(entry['v:event-start']['#']);
+
+              var dtstr = dt.toLocaleDateString('nb-NO', {
+                  day : 'numeric',
+                  month : 'long',
+                  year : 'numeric',
+              }) + ', ' + dt.toLocaleTimeString('nb-NO', {
+                  hour : '2-digit',
+                  minute : '2-digit',
+              });
+
+
+              // var whitelist = "strong"; // for more tags use the multiple selector, e.g. "p, img"
+              // var $summary = $(entry['summary']);
+              // $summary.not(whitelist).each(function() {
+              //     var content = $(this).contents();
+              //     $(this).replaceWith(content);
+              // });
+
+              var summary = entry['summary'].replace(/(<([^>]+)>)/ig,"").trim();
+
+              if (summary.indexOf(':') != -1) {
+                var summarysplit = [
+                  summary.substr(0, summary.indexOf(':')).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
+                  summary.substr(summary.indexOf(':') + 1).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
+                ];
+              } else {
+                var summarysplit = [summary, ''];
+              }
+
+              console.log(summarysplit);
+
+              var view = {
+                image: entry['v:image']['#'],
+                title: entry['title'].replace(/D[a-z]+: /, ''),
+                location: entry['v:event-location']['#'],
+                start_time: dtstr,
+                relative_time: relativeDate(dt),
+                summary: summarysplit[0],
+                summary2: summarysplit[1],
+              };
+
+              entry['v:event-start']['#']
+
+              var leftCol = $('<div class="leftCol">')
+                .append($('<div style="background-image: url(' + view.image + ');" class="animated fadeInLeft"></div>'))
+                ;
+
+              var rightCol = $('<div class="rightCol animated articleAnim">')
+                .append('<div class="article">' +
+                  '<div class="reltime">' + view.relative_time + ':</div>' +
+                  '<h2>' + view.title + '</h2>' +
+                  '<div class="intro">' + view.summary + ':</div>' +
+                  '<p class="title">' + view.summary2 + '</p>' +
+                  '</div>')
+                .append('<div class="timeloc"><table>'
+                  + '<tr><th>When:</th><td class="time">' + view.start_time + '</td></tr>'
+                  + '<tr><th>Where:</th><td class="loc">' + view.location + '</td></tr>'
+                  + '</table></div>')
+                ;
+
+              var entry = $('<div class="entry">')
+                .append(leftCol)
+                .append(rightCol)
+                ;
+
+              $main.append(entry);
             }
           });
 
-          $(blogDiv).slick({
-            adaptiveHeight: true,
-            autoplay: true,
-            autoplaySpeed: 7000 // ms
-          });
+          $('.entry:not(:first)').hide();
+
+
+function showCard(n) {
+  currentlyShowing = n;
+  for (var i = entries.length - 1; i >= 0; i--) {
+    if (i == currentlyShowing) {
+      $($('.entry')[i]).show();
+    } else {
+      $($('.entry')[i]).hide();
+    }
+  }
+}
+
+function nextCard() {
+    showCard(currentlyShowing > entries.length - 2 ? 0 : currentlyShowing + 1);
+}
+function prevCard() {
+    showCard(currentlyShowing == 0 ? entries.length - 1 : 0);
+}
+
+$(window).keypress(function (e) {
+  if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39) {
+    e.preventDefault();
+    nextCard();
+  }
+  if (e.keyCode === 37) {
+    e.preventDefault();
+    prevCard();
+  }
+})
+
+          // $(blogDiv).slick({
+          //   adaptiveHeight: true,
+          //   autoplay: true,
+          //   autoplaySpeed: 7000 // ms
+          // });
         });
       };
 
-      loadEntries('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming','disputas')
+      loadEntries('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming', $('h1'), $('main'))
     </script>
   </body>
 </html>
