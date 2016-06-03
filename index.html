@@ -23,6 +23,8 @@
         display: flex;
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
+        height: 100%;
       }
 
       .background-image {
@@ -51,19 +53,18 @@
       }
       header > div {
         box-sizing: border-box;
-        padding: 2.2vw 4vw 2vw 4vw;
+        padding: 2.0vw 4vw 2.0vw 4vw;
       }
       header .logo {
         justify-content: space-around;
         display: flex;
         flex-direction: column;
         background: #000;
-        flex: 0 1 38%;
-        margin-top: 8px;
+        flex: 0 1 54%;
       }
       header .header {
         text-align: left;
-        flex: 1 1 62%;
+        flex: 1 1 46%;
       }
       header h1 {
         color: #fff;
@@ -82,11 +83,12 @@
 
       footer {
         background: black;
-        height: 3vw;
       }
       footer div {
-        color: #666;
-        font-size: 50%;
+        color: #fff;
+        font-size: 100%;
+        padding: 1vw 4vw;
+        margin: 0;
         /*
         position: absolute;
         bottom: 0;
@@ -108,7 +110,7 @@
       }
       .entry .leftCol, .entry .rightCol {
         box-sizing: border-box;
-        padding: 4vw 4vw;
+        padding: 3vw 4vw;
       }
       .entry .rightCol {
         padding-left: 0;
@@ -128,6 +130,7 @@
       .leftCol div {
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: top center;
         -webkit-filter: saturate(1) grayscale(100%);
         /*box-shadow: 1px 1px 6px #666;*/
         /*border: 10px solid #777;*/
@@ -251,15 +254,15 @@
   </head>
   <body>
 
-    <div class="background-image"></div>
+<!--    <div class="background-image"></div>-->
 
-    <div class="container" style="position:absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0;">
+    <div class="container">
         <header>
           <div class="logo">
-            <img src="UiO_MN_C_ENG_cmyk.png">
+            <img src="UiO_MN_Seal_C_ENG_cmyk.png">
           </div>
           <div class="header">
-            <h1>Upcoming public PhD defences</h1>
+<!--            <h1>Upcoming public PhD defences</h1>-->
           </div>
         </header>
 
@@ -267,7 +270,12 @@
           
         </main>
 
-        <footer><div><!--Background: CC-BY-SA 3.0 © Jonathan Zander--></div></footer>
+        <footer><div>
+
+        <span style="float:left">PhD dissertation announcements</span>
+
+          <span id="cardno">Loading...</span>
+        <!--Background: CC-BY-SA 3.0 © Jonathan Zander--></div></footer>
 
     </div>
 
@@ -398,10 +406,10 @@
                 .append($('<div style="background-image: url(' + view.image + ');" class="animated fadeInLeft"></div>'))
                 ;
 
-              var rightCol = $('<div class="rightCol animated articleAnim"><div class="inner"><div class="article">'
+              var rightCol = $('<div class="rightCol animated articleAnim"><div class="inner">' // <div class="article">
                   + '<h2>' + view.title + '</h2>'
                   + '<div class="intro">' + view.summary + ':</div>'
-                  + '<p class="title">' + view.summary2 + '</p></div>'
+                  + '<p class="title">' + view.summary2 + '</p>' // </div>
                   + '<div class="timeloc"><table>'
                   + '<tr><th class="keyword">When</th><td class="time">' + view.start_time + '</td></tr>'
                   + '<tr><th class="keyword">Where</th><td class="loc">' + view.location + '</td></tr>'
@@ -418,10 +426,11 @@
             }
           });
 
-          $('.entry:not(:first)').hide();
+          showCard(0);
 
 
 function showCard(n) {
+  $('#cardno').html((n+1) + ' / ' + entries.length)
   currentlyShowing = n;
   for (var i = entries.length - 1; i >= 0; i--) {
     if (i == currentlyShowing) {
@@ -457,14 +466,6 @@ function tick() {
 
 setTimeout(tick);
 
-
-
-
-          // $(blogDiv).slick({
-          //   adaptiveHeight: true,
-          //   autoplay: true,
-          //   autoplaySpeed: 7000 // ms
-          // });
         });
       };
 
