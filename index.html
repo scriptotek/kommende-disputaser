@@ -466,6 +466,34 @@ function tick() {
 
 setTimeout(tick);
 
+
+(function lookForChanges() {
+  var prev = null;
+  function lookForChanges() {
+      $.ajax({
+          type: 'HEAD',
+          url: 'index.html'
+      }).done(function(message, text, jqXHR){
+          var current = jqXHR.getResponseHeader('Content-Length');
+          console.log(current);
+          if (prev == null) {
+            prev = current;
+          } else if (current > 0 && prev != current) {
+            setTimeout(function() {
+                // Short break to be really sure that we don't reload while write is in progress
+                window.location.replace('index.html?ts=' + current);
+            }, 500);
+          }
+          setTimeout(lookForChanges, 5 * 60 * 1000);
+      }).fail(function() {
+          console.log('no network');
+          setTimeout(lookForChanges, 5 * 60 * 1000);
+     });
+  }
+  setTimeout(lookForChanges, 5 * 60 * 1000);
+})();
+
+
         });
       };
 
