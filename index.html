@@ -42,8 +42,6 @@
         /* background: red; */
       }
 
-
-
       /* Header bar */
 
       header {
@@ -83,17 +81,16 @@
 
       footer {
         background: black;
-      }
-      footer div {
         color: #fff;
         font-size: 100%;
+      }
+      footer .leftCol {
+        padding: 1vw 0;
+        box-sizing: border-box;
+      }
+      footer .rightCol {
         padding: 1vw 4vw;
-        margin: 0;
-        /*
-        position: absolute;
-        bottom: 0;
-        */
-        text-align: right;
+        box-sizing: border-box;
       }
 
       /* Main area */
@@ -104,8 +101,10 @@
         flex-direction: column;
       }
       .entry {
-        display: flex;
         flex: 1 0 auto;
+      }
+      .entry, footer {
+        display: flex;
         align-items: stretch;
       }
       .entry .leftCol, .entry .rightCol {
@@ -116,7 +115,6 @@
         padding-left: 0;
       }
       .entry .leftCol {
-        flex: 0 0 38%;
         /*background: orange;*/
         /*background: #f2f2f2 ;*/
         display: flex;
@@ -136,9 +134,21 @@
         /*border: 10px solid #777;*/
         /*border-radius:2px;*/
       }
+      .entry .leftCol, footer .leftCol {
+        flex: 0 0 38%;
+      }
+      .entry .rightCol, footer .rightCol {
+        flex: 1 0 62%;
+      }
+      footer .leftCol {
+        text-align: center;
+      }
+      footer .rightCol {
+        text-align: right;
+      }
+
 
       .entry .rightCol {
-        flex: 1 0 62%;
         display: flex;
         align-items: stretch;
         flex-direction: row;
@@ -151,13 +161,9 @@
         padding: 3vw 4vw;
 
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         flex-direction: column;
 
-      }
-
-      .rightCol .inner > * {
-        margin: 1.5vw 0;
       }
 
       .rightCol .inner h2 {
@@ -165,8 +171,10 @@
         font-size: 150%;
         color: red;
         padding: 0;
-        margin: 0;
-        margin-bottom: 3vw;
+      }
+
+      .rightCol .inner > * {
+        margin: 1.5vw 0;
       }
 
       .timeloc {
@@ -254,8 +262,6 @@
   </head>
   <body>
 
-<!--    <div class="background-image"></div>-->
-
     <div class="container">
         <header>
           <div class="logo">
@@ -267,238 +273,217 @@
         </header>
 
         <main>
-          
         </main>
 
-        <footer><div>
-
-        <span style="float:left">PhD dissertation announcements</span>
-
-          <span id="cardno">Loading...</span>
-        <!--Background: CC-BY-SA 3.0 © Jonathan Zander--></div></footer>
+        <footer>
+          <div class="leftCol">
+            PhD dissertation announcements
+          </div>
+          <div class="rightCol">
+            <span id="cardno">Loading...</span>
+          </div>
+        </footer>
 
     </div>
 
     <!-- borrowed stuff -->
-    <script src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/richardkazuomiller/feednami-client/master/releases/1.0.2.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>-->
-
-    <!-- our own js -->
-    <script>
-      'use strict';
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.min.js"></script>
 
 
-      /* https://github.com/azer/relative-date/ */
 
-      var relativeDate = (function(undefined){
+<script id="entry_template" type="text/template">
 
-        var SECOND = 1000,
-            MINUTE = 60 * SECOND,
-            HOUR = 60 * MINUTE,
-            DAY = 24 * HOUR,
-            WEEK = 7 * DAY,
-            YEAR = DAY * 365,
-            MONTH = YEAR / 12;
+  <div class="entry">
+    <div class="leftCol">
+      <div style="background-image: url({{=it.image}});" class="animated fadeInLeft"></div>
+    </div>
 
-        var midnight = new Date();
-        midnight.setHours(0);
-        midnight.setMinutes(0);
-        midnight.setSeconds(0);
-        midnight.setMilliseconds(0);
-        midnight = midnight.getTime();
-        midnight += DAY;
+    <div class="rightCol animated articleAnim">
+      <div class="inner">
+        <h2>{{=it.person}}</h2>
+        <div class="intro">{{=it.intro}} :</div>
+        <p class="title">{{=it.title}}</p>
+        <div class="timeloc">
+          <table>
+            <tr><th class="keyword">When</th><td class="time">{{=it.time}}</td></tr>
+            <tr><th class="keyword">Where</th><td class="loc">{{=it.location}}</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        var formats = [
-            [midnight, 'i dag', DAY],
-            [midnight + DAY, 'Tomorrow', DAY],
-            [Number.MAX_VALUE, 'In %d days', DAY],
-          ];
+</script>
 
-        function relativeDate(input){
-          input instanceof Date && ( input = input.getTime() );
+<!-- our own js -->
+<script>
+'use strict';
 
-          var delta = input - midnight,
-              format, i, len;
+function stripHTML(dirtyString) {
+  var container = document.createElement('div');
+  var text = document.createTextNode(dirtyString);
+  container.appendChild(text);
+  return container.innerHTML; // innerHTML will be a xss safe string
+}
 
-          for(i = -1, len=formats.length; ++i < len; ){
-            format = formats[i];
-            if(input < format[0]){
-              return format[1].replace('%d', Math.round(delta/format[2]));
-            }
-          };
-        }
+function loadFeed(url, $main) {
 
-        return relativeDate;
+  function getViewData(entry) {
+    // Extracts and transforms data from an RSS entry
+    var dt = new Date(entry['v:event-start']['#']);
+    var dtstr = dt.toLocaleDateString('nb-NO', {
+        day : 'numeric',
+        month : 'long',
+        year : 'numeric',
+    }) + ', ' + dt.toLocaleTimeString('nb-NO', {
+        hour : '2-digit',
+        minute : '2-digit',
+    });
 
-      })();
+    var summary = entry['summary'].replace(/(<([^>]+)>)/ig,"").trim();
 
-
-      function stripHTML(dirtyString) {
-        var container = document.createElement('div');
-        var text = document.createTextNode(dirtyString);
-        container.appendChild(text);
-        return container.innerHTML; // innerHTML will be a xss safe string
-      }
-
-      function loadEntries(url, $h1, $main) {
-        feednami.load(url, res => {
-          const entries = res.feed.entries;
-
-          var currentlyShowing = 0;
-
-          //var entry = entries[4];
-
-          entries.forEach(entry => {
-            if(entry.title.indexOf('PR:') == -1 ){
-
-              //console.log(entry);
-              //console.log('sum', entry.summary);
-
-              // const summary = document.createElement('div');
-              // summary.innerHTML = entry.summary;
-              // summary.className = 'summary';
-
-              var dt = new Date(entry['v:event-start']['#']);
-
-              var dtstr = dt.toLocaleDateString('nb-NO', {
-                  day : 'numeric',
-                  month : 'long',
-                  year : 'numeric',
-              }) + ', ' + dt.toLocaleTimeString('nb-NO', {
-                  hour : '2-digit',
-                  minute : '2-digit',
-              });
-
-
-              // var whitelist = "strong"; // for more tags use the multiple selector, e.g. "p, img"
-              // var $summary = $(entry['summary']);
-              // $summary.not(whitelist).each(function() {
-              //     var content = $(this).contents();
-              //     $(this).replaceWith(content);
-              // });
-
-              var summary = entry['summary'].replace(/(<([^>]+)>)/ig,"").trim();
-
-              if (summary.indexOf(':') != -1) {
-                var summarysplit = [
-                  summary.substr(0, summary.indexOf(':')).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
-                  summary.substr(summary.indexOf(':') + 1).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
-                ];
-              } else {
-                var summarysplit = [summary, ''];
-              }
-
-              console.log(summarysplit);
-
-              var view = {
-                image: entry['v:image']['#'],
-                title: entry['title'].replace(/D[a-z]+: /, ''),
-                location: entry['v:event-location']['#'],
-                start_time: dtstr,
-                relative_time: relativeDate(dt),
-                summary: summarysplit[0],
-                summary2: summarysplit[1],
-              };
-
-              var leftCol = $('<div class="leftCol">')
-                .append($('<div style="background-image: url(' + view.image + ');" class="animated fadeInLeft"></div>'))
-                ;
-
-              var rightCol = $('<div class="rightCol animated articleAnim"><div class="inner">' // <div class="article">
-                  + '<h2>' + view.title + '</h2>'
-                  + '<div class="intro">' + view.summary + ':</div>'
-                  + '<p class="title">' + view.summary2 + '</p>' // </div>
-                  + '<div class="timeloc"><table>'
-                  + '<tr><th class="keyword">When</th><td class="time">' + view.start_time + '</td></tr>'
-                  + '<tr><th class="keyword">Where</th><td class="loc">' + view.location + '</td></tr>'
-                  + '</table></div>'
-                  + '</div>'
-                  );
-
-              var entry = $('<div class="entry">')
-                .append(leftCol)
-                .append(rightCol)
-                ;
-
-              $main.append(entry);
-            }
-          });
-
-          showCard(0);
-
-
-function showCard(n) {
-  $('#cardno').html((n+1) + ' / ' + entries.length)
-  currentlyShowing = n;
-  for (var i = entries.length - 1; i >= 0; i--) {
-    if (i == currentlyShowing) {
-      $($('.entry')[i]).show();
+    if (summary.indexOf(':') != -1) {
+      var summarysplit = [
+        summary.substr(0, summary.indexOf(':')).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
+        summary.substr(summary.indexOf(':') + 1).replace(/["\s]+$/, '').replace(/^["\s]+/, ''),
+      ];
     } else {
-      $($('.entry')[i]).hide();
+      var summarysplit = [summary, ''];
+    }
+
+    return {
+      image: entry['v:image']['#'],
+      person: entry['title'].replace(/D[a-z]+: /, ''),
+      location: entry['v:event-location']['#'],
+      time: dtstr,
+      intro: summarysplit[0],
+      title: summarysplit[1],
+    };
+  }
+
+  feednami.load(url, res => {
+    const entries = res.feed.entries;
+
+    entries.forEach(entry => {
+      if(entry.title.indexOf('PR:') == -1 ){
+        var view = getViewData(entry);
+        console.log(view);
+        var tplFn = doT.template($('#entry_template').html());
+        var $entry = $(tplFn(view));
+        $main.append($entry);
+      }
+    });
+
+    Show.start($('.entry'), $('#cardno'));
+
+  });
+};
+
+/* Navigation module */
+var Show = (function () {
+
+  var my = {
+    $cards: null,
+    $status: null,
+  }, currentCard = -1, size = 0, timer;
+
+  function showCard(n) {
+    if (my.$status) {
+      my.$status.html((n + 1) + ' / ' + size);
+    }
+    currentCard = n;
+    for (var i = size - 1; i >= 0; i--) {
+      if (i == currentCard) {
+        $(my.$cards[i]).show();
+      } else {
+        $(my.$cards[i]).hide();
+      }
     }
   }
-}
 
-function nextCard() {
-    showCard(currentlyShowing > entries.length - 2 ? 0 : currentlyShowing + 1);
-}
-function prevCard() {
-    showCard(currentlyShowing == 0 ? entries.length - 1 : 0);
-}
+  function nextCard() {
+    showCard(currentCard > size - 2 ? 0 : currentCard + 1);
+  }
 
-$(window).keydown(function (e) {
-  if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39 || e.keyCode === 40) {
-    e.preventDefault();
+  function prevCard() {
+    showCard(currentCard == 0 ? size - 1 : 0);
+  }
+
+  $(window).keydown(function (e) {
+    if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39 || e.keyCode === 40) {
+      e.preventDefault();
+      nextCard();
+    }
+    if (e.keyCode === 37 || e.keyCode === 38) {
+      e.preventDefault();
+      prevCard();
+    }
+  });
+
+  function tick() {
     nextCard();
+    timer = setTimeout(tick, 8000);
   }
-  if (e.keyCode === 37 || e.keyCode === 38) {
-    e.preventDefault();
-    prevCard();
+
+  my.start = function($cards, $status) {
+    if ($cards) {
+      my.$cards = $cards;
+      size = my.$cards.length;
+    }
+    if ($status) {
+      my.$status = $status;
+    }
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(tick);
   }
-});
 
-function tick() {
-    nextCard();
-    setTimeout(tick, 8000);
-}
-
-setTimeout(tick);
-
-
-(function lookForChanges() {
-  var prev = null;
-  function lookForChanges() {
-      $.ajax({
-          type: 'HEAD',
-          url: 'index.html'
-      }).done(function(message, text, jqXHR){
-          var current = jqXHR.getResponseHeader('Content-Length');
-          console.log(current);
-          if (prev == null) {
-            prev = current;
-          } else if (current > 0 && prev != current) {
-            setTimeout(function() {
-                // Short break to be really sure that we don't reload while write is in progress
-                window.location.replace('index.html?ts=' + current);
-            }, 500);
-          }
-          setTimeout(lookForChanges, 5 * 60 * 1000);
-      }).fail(function() {
-          console.log('no network');
-          setTimeout(lookForChanges, 5 * 60 * 1000);
-     });
+  my.stop = function() {
+    clearTimeout(timer);
   }
-  setTimeout(lookForChanges, 5 * 60 * 1000);
+
+  return my;
 })();
 
 
-        });
-      };
+/* Reload the browser if the page is updated (on git pull) */
+(function watch() {
 
-      loadEntries('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming', $('h1'), $('main'))
-    </script>
-  </body>
+  var prev = null, timer = null, interval = 5 * 60 * 1000;
+
+  function tick() {
+    $.ajax({
+      type: 'HEAD',
+      url: 'index.html'
+    }).done(function(message, text, jqXHR){
+      var current = jqXHR.getResponseHeader('Content-Length');
+      if (!prev) {
+        prev = current;
+      } else if (current > 0 && prev != current) {
+        timer.stop();
+        setTimeout(function() {
+            // Short break to be really sure that we don't reload while write is in progress
+            window.location.replace('./?ts=' + current);
+        }, 500);
+      }
+      timer = setTimeout(tick, interval);
+    }).fail(function() {
+      console.log('no network');
+      timer = setTimeout(tick, interval);
+    });
+  }
+
+  timer = setTimeout(tick, interval);
+})();
+
+/* Init */
+loadFeed('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming', $('main'));
+
+</script>
+
+</body>
 </html>
 
