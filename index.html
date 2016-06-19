@@ -424,23 +424,32 @@ var Show = (function () {
   }
 
   function prevCard() {
-    showCard(currentCard == 0 ? size - 1 : 0);
+    showCard(currentCard == 0 ? size - 1 : currentCard - 1);
   }
 
   $(window).keydown(function (e) {
-    if (e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 39 || e.keyCode === 40) {
+    /**
+     * Arrow keys: navigate through the cards and stop the timer so we can debug stuff
+     * Space key: jump to next slide and resume the timer.
+     */
+    if (e.keyCode === 0 || e.keyCode === 32) {  // Space
+      e.preventDefault();
+      tick();
+    } else if (e.keyCode === 39 || e.keyCode === 40) {  // Down or right key
+      my.stop();
       e.preventDefault();
       nextCard();
-    }
-    if (e.keyCode === 37 || e.keyCode === 38) {
+    } else if (e.keyCode === 37 || e.keyCode === 38) {  // Up or left key
+      my.stop();
       e.preventDefault();
       prevCard();
     }
   });
 
   function tick() {
+    my.stop();
     nextCard();
-    timer = setTimeout(tick, 8000);
+    timer = setTimeout(tick, 8000);  // Wait 8 seconds
   }
 
   my.start = function($cards, $status) {
@@ -451,14 +460,13 @@ var Show = (function () {
     if ($status) {
       my.$status = $status;
     }
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(tick);
+    tick();
   }
 
   my.stop = function() {
-    clearTimeout(timer);
+    if (timer) {
+      clearTimeout(timer);
+    }
   }
 
   return my;
