@@ -209,9 +209,19 @@
       }
 
       p.title {
-        font-size: 140%;
         font-family: 'Georgia';
         color: #000;
+      }
+      p.title.wc30 {
+        /* More than 30 characters in title */
+        font-size: 120%;
+      }
+      p.title.wc20 {
+        /* More than 20 characters in title */
+        font-size: 130%;
+      }
+      p.title.default {
+        font-size: 140%;
       }
 
       /* Animation */
@@ -304,7 +314,7 @@
       <div class="inner">
         <h2>{{=it.person}}</h2>
         <div class="intro">{{=it.intro}} :</div>
-        <p class="title">{{=it.title}}</p>
+        <p class="title {{=it.titleClass}}">{{=it.title}}</p>
         <div class="timeloc">
           <table>
             <tr><th class="keyword">When</th><td class="time">{{=it.time}}</td></tr>
@@ -353,6 +363,11 @@ function loadFeed(url, $main) {
       var summarysplit = [summary, ''];
     }
 
+    var titleWordCount = summarysplit[1].split(' ').length;
+    var titleClass = 'default';
+    if (titleWordCount > 30) { titleClass = 'wc30'; }
+    else if (titleWordCount > 20) { titleClass = 'wc20'; }
+
     return {
       image: entry['v:image']['#'],
       person: entry['title'].replace(/D[a-z]+: /, ''),
@@ -360,6 +375,7 @@ function loadFeed(url, $main) {
       time: dtstr,
       intro: summarysplit[0],
       title: summarysplit[1],
+      titleClass: titleClass,
     };
   }
 
