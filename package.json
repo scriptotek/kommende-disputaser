@@ -1,0 +1,26 @@
+{
+  "name": "kommende-disputaser",
+  "version": "1.0.0",
+  "description": "Enkel infoskjerm for å vise kommende disputaser.",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1",
+    "gulp-rev-append": "^0.1.6",
+    "gulp-sass": "^2.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scriptotek/kommende-disputaser.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scriptotek/kommende-disputaser/issues"
+  },
+  "homepage": "https://github.com/scriptotek/kommende-disputaser#readme"
+}

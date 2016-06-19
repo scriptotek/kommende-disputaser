@@ -5,295 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kommende disputaser MN</title>
-    <style>
-
-      /* Base styles */
-
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background: white;
-      }
-
-      .container {
-        font-family: Arial;
-        color: #333;
-        font-size: 1.8vw;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        height: 100%;
-      }
-
-      .background-image {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        opacity: 0.5;
-        z-index: 0;
-        /*
-        background: url(mnfrontpage-bg-print-1.png);
-        */
-        -webkit-filter: grayscale(100%);
-        /* background: red; */
-      }
-
-      /* Header bar */
-
-      header {
-        flex: 0 0 auto;
-        display: flex;
-        background: #000;
-      }
-      header > div {
-        box-sizing: border-box;
-        padding: 2.0vw 4vw 2.0vw 4vw;
-      }
-      header .logo {
-        justify-content: space-around;
-        display: flex;
-        flex-direction: column;
-        background: #000;
-        flex: 0 1 54%;
-      }
-      header .header {
-        text-align: left;
-        flex: 1 1 46%;
-      }
-      header h1 {
-        color: #fff;
-        font-weight: normal;
-        font-size: 140%;
-        margin: 0;
-        padding: 0;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-        width: 100%;
-      }
-      .logo img {
-        display: block;
-        max-width: 100%;
-        max-height: 100%;
-      }
-
-      footer {
-        background: black;
-        color: #fff;
-        font-size: 100%;
-      }
-      footer .leftCol {
-        padding: 1vw 0;
-        box-sizing: border-box;
-      }
-      footer .rightCol {
-        padding: 1vw 4vw;
-        box-sizing: border-box;
-      }
-
-      /* Main area */
-
-      main {
-        display: flex;
-        flex: 1 0 auto;
-        flex-direction: column;
-      }
-      .entry {
-        flex: 1 0 auto;
-      }
-      .entry, footer {
-        display: flex;
-        align-items: stretch;
-      }
-      .entry .leftCol, .entry .rightCol {
-        box-sizing: border-box;
-        padding: 3vw 4vw;
-      }
-      .entry .rightCol {
-        padding-left: 0;
-      }
-      .entry .leftCol {
-        /*background: orange;*/
-        /*background: #f2f2f2 ;*/
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-      }
-      .leftCol div {
-        flex: 1 0 auto;
-        overflow: hidden;
-      }
-      .leftCol div {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: top center;
-        -webkit-filter: saturate(1) grayscale(100%);
-        /*box-shadow: 1px 1px 6px #666;*/
-        /*border: 10px solid #777;*/
-        /*border-radius:2px;*/
-      }
-      .entry .leftCol, footer .leftCol {
-        flex: 0 0 38%;
-      }
-      .entry .rightCol, footer .rightCol {
-        flex: 1 0 62%;
-      }
-      footer .leftCol {
-        text-align: center;
-      }
-      footer .rightCol {
-        text-align: right;
-      }
-
-
-      .entry .rightCol {
-        display: flex;
-        align-items: stretch;
-        flex-direction: row;
-      }
-
-      .rightCol .inner {
-        background: url(mnfrontpage-bg-print-13.png);
-        background-size: 100%;
-        background-position: bottom center;
-        padding: 3vw 4vw;
-
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: column;
-
-      }
-
-      .rightCol .inner h2 {
-        font-weight: normal;
-        font-size: 150%;
-        color: red;
-        padding: 0;
-      }
-
-      .rightCol .inner > * {
-        margin: 1.5vw 0;
-      }
-
-      .timeloc {
-        flex: 0 0 auto;
-        margin-bottom: 0 !important;
-        /*border-top: 1px solid #dddddd;*/
-
-      }
-      .timeloc > * {
-      }
-
-      .summary {
-        font-size: 30px;
-      }
-
-      /* Tweaks and hacks */
-      .summary img {
-        display: none;
-      }
-      table {
-        margin: 0;
-        padding: 0;
-      }
-      table th, table, td {
-        vertical-align: top;
-        padding: .3vw 1vw 0 0;
-      }
-      table th {
-        font-weight: normal;
-        color: #999;
-        text-align: left;
-      }
-
-      p.title {
-        font-family: 'Georgia';
-        color: #000;
-      }
-      p.title.wc30 {
-        /* More than 30 characters in title */
-        font-size: 120%;
-      }
-      p.title.wc20 {
-        /* More than 20 characters in title */
-        font-size: 130%;
-      }
-      p.title.default {
-        font-size: 140%;
-      }
-
-      /* Animation */
-
-.animated {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.fadeInLeft {
-  animation-name: fadeInLeft;
-}
-
-@keyframes articleAnim {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.articleAnim {
-  animation-name: articleAnim;
-}
-
-.keyword {
-  color: red;
-}
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="build/app.css?rev=1c3d8c5d51e6f78777236a9285f2118d">
   </head>
   <body>
 
-    <div class="container">
-        <header>
-          <div class="logo">
-            <img src="UiO_MN_Seal_C_ENG_cmyk.png">
-          </div>
-          <div class="header">
-<!--            <h1>Upcoming public PhD defences</h1>-->
-          </div>
-        </header>
+    <div class="full-screen">
+      <header>
+        <div id="logo">
+          <img src="assets/UiO_MN_Seal_C_ENG_cmyk.png">
+        </div>
+        <!--
+        <div class="header">
+          <h1>Upcoming public PhD defences</h1>
+        </div>-->
+      </header>
 
-        <main>
-        </main>
+      <main>
+      </main>
 
-        <footer>
-          <div class="leftCol">
-            PhD dissertation announcements
-          </div>
-          <div class="rightCol">
-            <span id="cardno">Loading...</span>
-          </div>
-        </footer>
-
+      <footer>
+        <div class="leftColumn">
+          PhD dissertation announcements
+        </div>
+        <div class="rightColumn">
+          <span id="cardno">Loading...</span>
+        </div>
+      </footer>
     </div>
 
     <!-- borrowed stuff -->
@@ -302,23 +39,22 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dot/1.0.3/doT.min.js"></script>
 
 
-
 <script id="entry_template" type="text/template">
 
   <div class="entry">
-    <div class="leftCol">
-      <div style="background-image: url({{=it.image}});" class="animated fadeInLeft"></div>
+    <div class="leftColumn animated fadeIn">
+      <div style="background-image: url({{=it.image}});"></div>
     </div>
 
-    <div class="rightCol animated articleAnim">
+    <div class="rightColumn animated fadeIn">
       <div class="inner">
-        <h2>{{=it.person}}</h2>
+        <h2 class="red">{{=it.person}}</h2>
         <div class="intro">{{=it.intro}} :</div>
         <p class="title {{=it.titleClass}}">{{=it.title}}</p>
         <div class="timeloc">
           <table>
-            <tr><th class="keyword">When</th><td class="time">{{=it.time}}</td></tr>
-            <tr><th class="keyword">Where</th><td class="loc">{{=it.location}}</td></tr>
+            <tr><th class="red">When</th><td class="time">{{=it.time}}</td></tr>
+            <tr><th class="red">Where</th><td class="loc">{{=it.location}}</td></tr>
           </table>
         </div>
       </div>
