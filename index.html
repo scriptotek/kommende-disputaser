@@ -63,6 +63,14 @@
 
 </script>
 
+<script id="empty_template" type="text/template">
+
+  <div class="empty">
+    <h2>The sea is calm, there’s nothing to announce right now.<br>I wonder who’s next.</h2>
+  </div>
+
+</script>
+
 <!-- our own js -->
 <script>
 'use strict';
@@ -128,7 +136,14 @@ function loadFeed(url, $main) {
       }
     });
 
-    Show.start($('.entry'), $('#cardno'));
+    if (entries.length) {
+      Show.start($('.entry'), $('#cardno'));
+    } else {
+      $('#cardno').html('');
+      var tplFn = doT.template($('#empty_template').html());
+      var $entry = $(tplFn());
+      $main.append($entry);
+    }
 
   });
 };

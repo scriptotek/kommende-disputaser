@@ -51,6 +51,17 @@ main {
   display: flex;
   flex-direction: column; }
 
+.empty {
+  flex: 1 0 auto;
+  padding: 3vw 4vw;
+  background: url(../assets/mnfrontpage-bg-print-13.png);
+  background-size: 100%;
+  background-position: top center; }
+  .empty h2 {
+    color: #888;
+    line-height: 180%;
+    font-weight: 500; }
+
 .entry {
   flex: 1 0 auto;
   display: flex;
