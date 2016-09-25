@@ -8,20 +8,27 @@ html, body {
   font-family: Arial;
   color: #333;
   font-size: 1.8vw;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -ms-flex-align: stretch;
   align-items: stretch;
   width: 100%;
   height: 100%; }
 
 header {
+  -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+  display: -ms-flexbox;
   display: flex;
   background: black; }
   header > * {
     box-sizing: border-box; }
   header #logo {
+    -ms-flex: 0 1 50%;
     flex: 0 1 50%;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     padding: 2vw 0 2vw 4vw; }
     header #logo img {
@@ -30,28 +37,37 @@ header {
       max-height: 100%; }
 
 footer {
+  -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-align: stretch;
   align-items: stretch;
   background: black;
   color: #fff; }
   footer > * {
     box-sizing: border-box; }
   footer .leftColumn {
+    -ms-flex: 0 0 38%;
     flex: 0 0 38%;
     padding: 1vw 0;
     text-align: center; }
   footer .rightColumn {
+    -ms-flex: 1 0 62%;
     flex: 1 0 62%;
     padding: 1vw 4vw;
     text-align: right; }
 
 main {
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-direction: column;
   flex-direction: column; }
 
 .empty {
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
   padding: 3vw 4vw;
   background: url(../assets/mnfrontpage-bg-print-13.png);
@@ -63,26 +79,37 @@ main {
     font-weight: 500; }
 
 .entry {
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-align: stretch;
   align-items: stretch; }
   .entry > * {
     box-sizing: border-box;
     padding: 3vw 4vw 3vw 4vw; }
   .entry .leftColumn {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex: 0 0 38%;
     flex: 0 0 38%;
+    -ms-flex-pack: center;
     justify-content: center;
+    -ms-flex-align: stretch;
     align-items: stretch; }
     .entry .leftColumn div {
+      -ms-flex: 1 0 auto;
       flex: 1 0 auto;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: top center;
       -webkit-filter: saturate(1) grayscale(100%); }
   .entry .rightColumn {
+    -ms-flex: 1 0 62%;
     flex: 1 0 62%;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction: row;
     flex-direction: row;
     position: relative; }
     .entry .rightColumn .inner {
@@ -93,8 +120,11 @@ main {
       right: 4vw;
       overflow: hidden;
       /*flex: 1 1 auto;*/
+      display: -ms-flexbox;
       display: flex;
+      -ms-flex-direction: column;
       flex-direction: column;
+      -ms-flex-pack: end;
       justify-content: flex-end;
       background: url(../assets/mnfrontpage-bg-print-13.png);
       background-size: 100%;
@@ -119,6 +149,7 @@ main {
       .entry .rightColumn .inner .default {
         font-size: 140%; }
       .entry .rightColumn .inner .timeloc {
+        -ms-flex: 0 0 auto;
         flex: 0 0 auto;
         margin-bottom: 0 !important;
         /*border-top: 1px solid #dddddd;*/ }
@@ -151,3 +182,5 @@ table {
 
 .red {
   color: red; }
+
+/*# sourceMappingURL=app.css.map */
