@@ -37,8 +37,13 @@ function loadFeed(url, $main) {
       titleClass = 'wc20';
     }
 
+    var image = null;
+    if (entry['v:image'] !== undefined && entry['v:image']['#'] !== undefined) {
+      image = entry['v:image']['#'];
+    }
+
     return {
-      image: entry['v:image']['#'],
+      image: image,
       person: entry['title'].replace(/D[a-z]+: /, ''),
       location: entry['v:event-location']['#'],
       time: dtstr,
