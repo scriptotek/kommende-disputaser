@@ -182,6 +182,3 @@ var Show = (function () {
 
   timer = setTimeout(tick, interval);
 })();
-
-/* Init */
-loadFeed('http://www.mn.uio.no/forskning/aktuelt/arrangementer/disputaser/?vrtx=feed&view=allupcoming', $('main'));

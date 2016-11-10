@@ -18,16 +18,16 @@ html, body {
   height: 100%; }
 
 header {
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
+  -ms-flex: 0 0 16vh;
+  flex: 0 0 16vh;
   display: -ms-flexbox;
   display: flex;
   background: black; }
   header > * {
     box-sizing: border-box; }
   header #logo {
-    -ms-flex: 0 1 50%;
-    flex: 0 1 50%;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
     -ms-flex-pack: distribute;
     justify-content: space-around;
     padding: 2vw 0 2vw 4vw; }

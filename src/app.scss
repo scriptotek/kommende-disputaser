@@ -12,7 +12,7 @@ $entry-horizontal-padding: 4vw;
 $entry-vertical-padding:   3vw;
 $entry-element-spacing:   1.3vw;
 
-$logo-width: 50%;
+$header-height: 16vh;
 $left-column-width: 38%;
 
 html, body {
@@ -34,7 +34,7 @@ html, body {
 }
 
 header {
-  flex: 0 0 auto;
+  flex: 0 0 $header-height;
   display: flex;
 
   background: black;
@@ -44,7 +44,7 @@ header {
   }
 
   #logo {
-    flex: 0 1 $logo-width;
+    flex: 1 1 auto;
     justify-content: space-around;
     padding: $header-vertical-margin 0 $header-vertical-margin $horizontal-margin;
 
