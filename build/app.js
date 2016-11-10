@@ -40,6 +40,7 @@ function loadFeed(url, $main) {
     var image = null;
     if (entry['v:image'] !== undefined && entry['v:image']['#'] !== undefined) {
       image = entry['v:image']['#'];
+      image = image.replace('http:', 'https:');
     }
 
     return {
