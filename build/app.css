@@ -70,7 +70,7 @@ main {
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
   padding: 3vw 4vw;
-  background: url(../assets/mnfrontpage-bg-print-13.png);
+  background: url(assets/mnfrontpage-bg-print-13.png);
   background-size: 100%;
   background-position: top center; }
   .empty h2 {
@@ -126,7 +126,7 @@ main {
       flex-direction: column;
       -ms-flex-pack: end;
       justify-content: flex-end;
-      background: url(../assets/mnfrontpage-bg-print-13.png);
+      background: url(assets/mnfrontpage-bg-print-13.png);
       background-size: 100%;
       background-position: bottom center;
       padding: 3vw 4vw;
