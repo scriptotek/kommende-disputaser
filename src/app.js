@@ -41,10 +41,15 @@ function loadFeed(url, $main) {
         image = entry['v:image']['#'];
     }
 
+    var location = '(not announced yet)'
+    if (entry['v:event-location'] !== undefined && entry['v:event-location']['#'] !== undefined) {
+        location = entry['v:event-location']['#'];
+    }
+
     return {
       image: image,
       person: entry['title'].replace(/D[a-z]+: /, ''),
-      location: entry['v:event-location']['#'],
+      location: location,
       time: dtstr,
       intro: summarysplit[0],
       title: summarysplit[1],
