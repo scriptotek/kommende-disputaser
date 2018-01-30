@@ -15,11 +15,17 @@ $entry-element-spacing: 1.3vw
 $header-height: 16vh
 $left-column-width: 38%
 
+
+$debugColor1: white
+$debugColor2: white
+
+
 html, body
   height: 100%
   margin: 0
   padding: 0
-  background: white
+  overflow: hidden  // for IE11 :/
+  background: black
 
 .full-screen
   font-family: $standard-font
@@ -28,11 +34,11 @@ html, body
   display: flex
   flex-direction: column
   align-items: stretch
-  width: 100%
   height: 100%
+  background: white
 
 
-header
+#header
   flex: 0 0 $header-height
   display: flex
 
@@ -48,10 +54,10 @@ header
 
     img
       display: block
-      max-width: 100%
-      max-height: 100%
+      height: 100%
+      overflow: hidden
 
-footer
+#footer
   flex: 0 0 auto
   display: flex
   align-items: stretch
@@ -59,20 +65,22 @@ footer
   background: black
   color: #fff
 
-  > *
-    box-sizing: border-box
+  // > *
+  //   box-sizing: border-box // not supported by IE11
 
   .leftColumn
     flex: 0 0 $left-column-width
-    padding: $footer-vertical-margin 0
-    text-align: center
+    div
+      padding: $footer-vertical-margin 0
+      text-align: center
 
   .rightColumn
     flex: 1 0 100% - $left-column-width
-    padding: $footer-vertical-margin $horizontal-margin
-    text-align: right
+    div
+      padding: $footer-vertical-margin $horizontal-margin
+      text-align: right
 
-main
+#main
   flex: 1 0 auto
   display: flex
   flex-direction: column
@@ -93,18 +101,34 @@ main
   display: flex
   align-items: stretch
 
-  > *
-    box-sizing: border-box
-    padding: $main-vertical-margin $horizontal-inner-margin $main-vertical-margin $horizontal-margin
+  //> *
+  //  box-sizing: border-box
+  //  padding: $main-vertical-margin $horizontal-inner-margin $main-vertical-margin $horizontal-margin
 
   .leftColumn
     display: flex
     flex: 0 0 $left-column-width
     justify-content: center
     align-items: stretch
+    background: $debugColor1
 
-    div
-      flex: 1 0 auto
+    .inner
+      flex: 1 1 auto
+      margin-left: $horizontal-margin
+      margin-right: $horizontal-inner-margin
+      margin-top: $main-vertical-margin
+      margin-bottom: $main-vertical-margin
+      // margin: 2em   // TODO: Replace with variable
+
+    //.inner
+    //  padding: $entry-vertical-padding $entry-horizontal-padding
+    //  margin-left: $horizontal-inner-margin
+
+    .photo
+      background: #eee
+      flex: 1 1 auto
+      height: 100%
+      width: 100%
       background-repeat: no-repeat
       background-size: cover
       background-position: top center
@@ -114,7 +138,7 @@ main
     flex: 1 0 100% - $left-column-width
     display: flex
     flex-direction: row
-
+    background: $debugColor2
     position: relative
 
     .inner
@@ -132,6 +156,8 @@ main
       justify-content: flex-end
 
       padding: $entry-vertical-padding $entry-horizontal-padding
+      // margin-left: $horizontal-inner-margin
+      //margin: $main-vertical-margin $horizontal-inner-margin $main-vertical-margin $horizontal-margin
 
       > *
         margin: $entry-element-spacing 0

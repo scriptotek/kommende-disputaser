@@ -48,7 +48,7 @@ gulp.task('styles', () =>
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.init())
         .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+            browserslist: ['last 2 versions OR ie >= 11'],
             cascade: false
         }))
         .pipe(sourcemaps.write('.'))
