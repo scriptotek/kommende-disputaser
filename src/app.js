@@ -117,6 +117,9 @@ var Show = (function () {
      * Arrow keys: navigate through the cards and stop the timer so we can debug stuff
      * Space key: jump to next slide and resume the timer.
      */
+
+    if (e.shiftKey || e.ctrlKey || e.altKey || e.metaKey) return;
+
     if (e.keyCode === 0 || e.keyCode === 32) {  // Space
       e.preventDefault();
       tick();
