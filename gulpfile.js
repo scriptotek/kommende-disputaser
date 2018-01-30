@@ -28,7 +28,7 @@ const feeds = [
 const paths = {
     index: './src/index.html',
     sass: {
-        src: './src/*.scss',
+        src: './src/*.sass',
         dest: './build',
     },
     js: {
