@@ -68,7 +68,8 @@ gulp.task('scripts', () =>
 
 gulp.task('browser-sync-init', () =>
     bs.init({
-        server: { baseDir: './build/' }
+        server: { baseDir: './build/' },
+        startPath: '/mn.html',
     })
 )
 
