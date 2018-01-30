@@ -92,7 +92,6 @@ main {
 .empty {
   flex: 1 0 auto;
   padding: 3vw $horizontal-margin;
-  background: url(assets/mnfrontpage-bg-print-13.png);
   background-size: 100%;
   background-position: top center;
 
@@ -149,9 +148,6 @@ main {
       flex-direction: column;
       justify-content: flex-end;
 
-      background: url(assets/mnfrontpage-bg-print-13.png);
-      background-size: 100%;
-      background-position: bottom center;
       padding: $entry-vertical-padding $entry-horizontal-padding;
 
       > * {

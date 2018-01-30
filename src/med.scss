@@ -1,0 +1,13 @@
+.empty {
+  background-image: url(assets/background_med.png);
+}
+
+.entry {
+  .rightColumn {
+    .inner {
+      background-image: url(assets/background_med.png);
+      background-position: bottom center;
+      background-size: 100%;
+    }
+  }
+}
