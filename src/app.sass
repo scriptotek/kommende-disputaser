@@ -4,7 +4,7 @@ $title-font: Georgia
 $horizontal-margin: 4vw
 $horizontal-inner-margin: 4vw
 
-$header-vertical-margin: 2vw
+$header-vertical-margin: 3vh
 $main-vertical-margin: 3vw
 $footer-vertical-margin: 1vw
 
@@ -39,23 +39,18 @@ html, body
 
 
 #header
-  flex: 0 0 $header-height
-  display: flex
-
   background: black
-
-  > *
-    box-sizing: border-box
+  flex: 0 0 $header-height
 
   #logo
-    flex: 1 1 auto
-    justify-content: space-around
-    padding: $header-vertical-margin 0 $header-vertical-margin $horizontal-margin
+    position: relative
+    height: 100%
 
     img
-      display: block
-      height: 100%
-      overflow: hidden
+      position: absolute
+      top: $header-vertical-margin
+      left: $horizontal-margin
+      height: $header-height - 2 * $header-vertical-margin
 
 #footer
   flex: 0 0 auto
